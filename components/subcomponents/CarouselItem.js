@@ -9,16 +9,28 @@ import {
 import { SearchBar } from "react-native-elements";
 import Carousel, { ParallaxImage } from "react-native-snap-carousel";
 import { getTopRatedMovies } from "../../networking/movies";
+import Icon from "react-native-vector-icons/AntDesign";
 
 const { width: screenWidth } = Dimensions.get("window");
 
 export default function CarouselItem({ item, parallaxProps, itemClicked }) {
+    const [selected, setSelected] = useState(false);
     let image = { uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}` };
+    const displaySelected = () => {
+        if (selected) {
+            return (
+                <View style={styles.iconContainer}>
+                    <Icon name="checkcircleo" color="green" size={32} />
+                </View>
+            );
+        }
+    };
     return (
         <TouchableOpacity
             onPress={() => itemClicked(item)}
             activeOpacity={0.6}
             style={styles.item}
+            onLongPress={() => setSelected(!selected)}
         >
             <ParallaxImage
                 source={image}
@@ -36,6 +48,8 @@ export default function CarouselItem({ item, parallaxProps, itemClicked }) {
                     <Text style={styles.text}>{item.release_date}</Text>
                 </View>
             </View>
+
+            {displaySelected()}
         </TouchableOpacity>
     );
 }
@@ -81,5 +95,10 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "#fff",
+    },
+    iconContainer: {
+        position: "absolute",
+        top: 20,
+        right: 20,
     },
 });
