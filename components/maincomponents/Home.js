@@ -1,17 +1,24 @@
 import React, { useRef, useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+    Dimensions,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+} from "react-native";
 import { SearchBar } from "react-native-elements";
 import Carousel from "react-native-snap-carousel";
 import {
     getTopRatedMovies,
     resetTopRatedPage,
     searchMovies,
-} from "../networking/movies";
-import CarouselItem from "./CarouselItem";
+} from "../../networking/movies";
+import CarouselItem from "../subcomponents/CarouselItem";
+import Icon from "react-native-vector-icons/Entypo";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function Home() {
+export default function Home({ navigation }) {
     const [searchText, setSearchText] = useState("");
     const [isLoading, setLoading] = useState(true);
     const [carouselData, setCarouselData] = useState([]);
@@ -25,6 +32,18 @@ export default function Home() {
     };
 
     if (isLoading) {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity
+                    onPress={() =>
+                        navigation.navigate("Data", { location: true })
+                    }
+                    // style={{ marginRight: 10 }}
+                >
+                    <Icon name="location-pin" color="black" size={24} />
+                </TouchableOpacity>
+            ),
+        });
         getTopRatedMovies(handleMoviesCallback, false);
         setLoading(false);
     }
@@ -42,6 +61,10 @@ export default function Home() {
             searchMovies(text, handleMoviesCallback);
         }
         setSearchText(text);
+    };
+
+    const itemClicked = (item) => {
+        navigation.navigate("Data");
     };
     return (
         <View style={styles.container}>
@@ -72,7 +95,11 @@ export default function Home() {
                 itemWidth={screenWidth - 60}
                 data={carouselData}
                 renderItem={({ item }, parallaxProps) => (
-                    <CarouselItem item={item} parallaxProps={parallaxProps} />
+                    <CarouselItem
+                        item={item}
+                        parallaxProps={parallaxProps}
+                        itemClicked={itemClicked}
+                    />
                 )}
                 hasParallaxImages={true}
                 onEndReached={handleEnd}

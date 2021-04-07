@@ -8,15 +8,15 @@ import {
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import Carousel, { ParallaxImage } from "react-native-snap-carousel";
-import { getTopRatedMovies } from "../networking/movies";
+import { getTopRatedMovies } from "../../networking/movies";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function CarouselItem({ item, parallaxProps }) {
+export default function CarouselItem({ item, parallaxProps, itemClicked }) {
     let image = { uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}` };
     return (
         <TouchableOpacity
-            // onPress={() => itemClicked(item)}
+            onPress={() => itemClicked(item)}
             activeOpacity={0.6}
             style={styles.item}
         >
