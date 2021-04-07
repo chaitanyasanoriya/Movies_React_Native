@@ -29,11 +29,12 @@ export default function CarouselItem({ item, parallaxProps }) {
             />
             <View style={styles.info}>
                 <Text style={styles.title} numberOfLines={1}>
-                    {item.name}
+                    {item.original_title}
                 </Text>
-                <Text style={styles.subtitle} numberOfLines={2}>
-                    $ {item.price}
-                </Text>
+                <View style={styles.subInfoView}>
+                    <Text style={styles.text}>Rating: {item.vote_average}</Text>
+                    <Text style={styles.text}>{item.release_date}</Text>
+                </View>
             </View>
         </TouchableOpacity>
     );
@@ -68,10 +69,17 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
-        resizeMode: "cover",
     },
     image: {
         ...StyleSheet.absoluteFillObject,
         resizeMode: "contain",
+    },
+    subInfoView: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    text: {
+        color: "#fff",
     },
 });
