@@ -51,6 +51,9 @@ export default function CastItem({ item, parallaxProps, itemClicked }) {
             />
             <View style={styles.info}>
                 <Text style={styles.title}>{getTitle()}</Text>
+                <Text style={{ color: "#fff", fontSize: 12 }}>
+                    {item.character}
+                </Text>
             </View>
 
             {displaySelected()}

@@ -45,6 +45,24 @@ export const getSimilarMovies = async (movieID, callBack) => {
     callBack(json, false);
 };
 
+export const getCastInformation = async (castID, callBack) => {
+    let response = await fetch(
+        `https://api.themoviedb.org/3/person/${castID}?api_key=268c88dfb53e699af83e0094f0b584ce&language=en-US`
+    );
+    let json = await response.json();
+    // console.log(json);
+    callBack(json, false);
+};
+
+export const getWorkedOn = async (castID, callBack) => {
+    let response = await fetch(
+        `https://api.themoviedb.org/3/person/${castID}/movie_credits?api_key=268c88dfb53e699af83e0094f0b584ce&language=en-US`
+    );
+    let json = await response.json();
+    // console.log(json);
+    callBack(json, false);
+};
+
 // export const resetSearchPage = () => {
 //     __searchPage = 0;
 // }

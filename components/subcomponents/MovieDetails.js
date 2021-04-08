@@ -14,7 +14,6 @@ import Carousel from "react-native-snap-carousel";
 import { getCast, getSimilarMovies } from "../../networking/movies";
 import CastItem from "../subcomponents/CastItem";
 import CarouselItem from "./CarouselItem";
-import MovieItem from "./MovieItem";
 const { width: screenWidth } = Dimensions.get("window");
 
 export default function MovieDetails({ movie, push }) {
@@ -23,13 +22,12 @@ export default function MovieDetails({ movie, push }) {
     const [extraData, setExtraData] = useState(true);
     const [similarMovies, setSimilarMovies] = useState([]);
     const handleCasts = (json) => {
-        // console.log("cast: ", json.cast);
         setCast(json.cast);
         setExtraData(!extraData);
     };
 
     const handleSimilarMovies = (json) => {
-        console.log(json);
+        // console.log(json);
         setSimilarMovies(json.results);
     };
 
@@ -45,7 +43,7 @@ export default function MovieDetails({ movie, push }) {
         return movie.title;
     };
     const castClicked = (cast) => {
-        console.log(cast);
+        push("Data", { cast: cast });
     };
     const movieClicked = (movie) => {
         push("Data", { movie: movie });
