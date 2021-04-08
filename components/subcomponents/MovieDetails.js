@@ -17,7 +17,7 @@ import CarouselItem from "./CarouselItem";
 import MovieItem from "./MovieItem";
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function MovieDetails({ movie }) {
+export default function MovieDetails({ movie, push }) {
     const [cast, setCast] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [extraData, setExtraData] = useState(true);
@@ -48,7 +48,7 @@ export default function MovieDetails({ movie }) {
         console.log(cast);
     };
     const movieClicked = (movie) => {
-        console.log(movie);
+        push("Data", { movie: movie });
     };
     return (
         <View style={styles.container}>
@@ -95,6 +95,7 @@ export default function MovieDetails({ movie }) {
                         )}
                         hasParallaxImages={true}
                         extraData={extraData}
+                        loop={true}
                     />
 
                     <Text
@@ -121,7 +122,7 @@ export default function MovieDetails({ movie }) {
                             />
                         )}
                         hasParallaxImages={true}
-                        extraData={extraData}
+                        loop={true}
                     />
                 </View>
             </ScrollView>
