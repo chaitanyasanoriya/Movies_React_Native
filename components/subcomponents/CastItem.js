@@ -6,21 +6,20 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
-import { SearchBar } from "react-native-elements";
-import Carousel, { ParallaxImage } from "react-native-snap-carousel";
-import { getTopRatedMovies } from "../../networking/movies";
+import { ParallaxImage } from "react-native-snap-carousel";
 import Icon from "react-native-vector-icons/AntDesign";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function CarouselItem({
-    item,
-    parallaxProps,
-    itemClicked,
-    width,
-}) {
+export default function CastItem({ item, parallaxProps, itemClicked }) {
+    // console.log("received item: ", item);
     const [selected, setSelected] = useState(false);
-    let image = { uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}` };
+    let image = { uri: `https://image.tmdb.org/t/p/w500${item.profile_path}` };
+    if (item.profile_path == null) {
+        image = {
+            uri: `https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png`,
+        };
+    }
     const displaySelected = () => {
         if (selected) {
             return (
@@ -31,26 +30,16 @@ export default function CarouselItem({
         }
     };
     const getTitle = () => {
-        if (item.original_title != item.title) {
-            return `${item.title} (${item.original_title})`;
+        if (item.original_name != item.name) {
+            return `${item.original_name} (${item.name})`;
         }
-        return item.title;
-    };
-    const displayInfo = () => {
-        if (width > 150) {
-            return (
-                <View style={styles.subInfoView}>
-                    <Text style={styles.text}>Rating: {item.vote_average}</Text>
-                    <Text style={styles.text}>{item.release_date}</Text>
-                </View>
-            );
-        }
+        return item.name;
     };
     return (
         <TouchableOpacity
             onPress={() => itemClicked(item)}
             activeOpacity={0.6}
-            style={[styles.item, { width: width }]}
+            style={styles.item}
             onLongPress={() => setSelected(!selected)}
         >
             <ParallaxImage
@@ -61,14 +50,7 @@ export default function CarouselItem({
                 {...parallaxProps}
             />
             <View style={styles.info}>
-                <Text
-                    style={styles.title}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                >
-                    {getTitle()}
-                </Text>
-                {displayInfo()}
+                <Text style={styles.title}>{getTitle()}</Text>
             </View>
 
             {displaySelected()}
@@ -81,15 +63,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
     },
-    imageCarousel: {
-        flex: 1,
-    },
     item: {
+        width: 150,
         aspectRatio: 1.5 / 2.6,
         backgroundColor: "#222222",
         borderRadius: 8,
     },
-    info: { padding: 15 },
+    info: { padding: 15, justifyContent: "center", alignContent: "center" },
     title: {
         color: "white",
         fontWeight: "bold",
@@ -107,7 +87,7 @@ const styles = StyleSheet.create({
     },
     image: {
         ...StyleSheet.absoluteFillObject,
-        resizeMode: "contain",
+        resizeMode: "cover",
     },
     subInfoView: {
         width: "100%",

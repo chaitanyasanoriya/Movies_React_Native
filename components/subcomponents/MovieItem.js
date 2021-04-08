@@ -13,12 +13,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function CarouselItem({
-    item,
-    parallaxProps,
-    itemClicked,
-    width,
-}) {
+export default function MovieItem({ item, parallaxProps, itemClicked, width }) {
     const [selected, setSelected] = useState(false);
     let image = { uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}` };
     const displaySelected = () => {
@@ -36,21 +31,11 @@ export default function CarouselItem({
         }
         return item.title;
     };
-    const displayInfo = () => {
-        if (width > 150) {
-            return (
-                <View style={styles.subInfoView}>
-                    <Text style={styles.text}>Rating: {item.vote_average}</Text>
-                    <Text style={styles.text}>{item.release_date}</Text>
-                </View>
-            );
-        }
-    };
     return (
         <TouchableOpacity
             onPress={() => itemClicked(item)}
             activeOpacity={0.6}
-            style={[styles.item, { width: width }]}
+            style={styles.item}
             onLongPress={() => setSelected(!selected)}
         >
             <ParallaxImage
@@ -68,7 +53,10 @@ export default function CarouselItem({
                 >
                     {getTitle()}
                 </Text>
-                {displayInfo()}
+                <View style={styles.subInfoView}>
+                    <Text style={styles.text}>Rating: {item.vote_average}</Text>
+                    <Text style={styles.text}>{item.release_date}</Text>
+                </View>
             </View>
 
             {displaySelected()}
@@ -85,6 +73,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     item: {
+        width: 150,
         aspectRatio: 1.5 / 2.6,
         backgroundColor: "#222222",
         borderRadius: 8,

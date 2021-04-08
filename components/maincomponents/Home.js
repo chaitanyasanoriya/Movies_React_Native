@@ -64,7 +64,7 @@ export default function Home({ navigation }) {
     };
 
     const itemClicked = (item) => {
-        navigation.navigate("Data");
+        navigation.navigate("Data", { movie: item });
     };
     return (
         <View style={styles.container}>
@@ -99,6 +99,7 @@ export default function Home({ navigation }) {
                         item={item}
                         parallaxProps={parallaxProps}
                         itemClicked={itemClicked}
+                        width={screenWidth - 60}
                     />
                 )}
                 hasParallaxImages={true}
