@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
     Dimensions,
     StyleSheet,
@@ -14,7 +14,10 @@ import {
     searchMovies,
 } from "../../networking/movies";
 import CarouselItem from "../subcomponents/CarouselItem";
-import Icon from "react-native-vector-icons/Entypo";
+import {
+    Entypo as Icon,
+    Feather as FeatherIcon,
+} from "react-native-vector-icons";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -34,14 +37,22 @@ export default function Home({ navigation }) {
     if (isLoading) {
         navigation.setOptions({
             headerRight: () => (
-                <TouchableOpacity
-                    onPress={() =>
-                        navigation.navigate("Data", { location: true })
-                    }
-                    // style={{ marginRight: 10 }}
-                >
-                    <Icon name="location-pin" color="black" size={24} />
-                </TouchableOpacity>
+                <View style={{ flexDirection: "row" }}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigation.navigate("Data", { location: true })
+                        }
+                        style={{ marginRight: 10 }}
+                    >
+                        <Icon name="location-pin" color="black" size={24} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("About")}
+                        // style={{ marginRight: 10 }}
+                    >
+                        <FeatherIcon name="info" color="black" size={24} />
+                    </TouchableOpacity>
+                </View>
             ),
         });
         getTopRatedMovies(handleMoviesCallback, false);

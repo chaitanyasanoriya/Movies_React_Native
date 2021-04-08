@@ -6,6 +6,7 @@ import { enableScreens } from "react-native-screens";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import Home from "./components/maincomponents/Home";
 import Data from "./components/maincomponents/Data";
+import About from "./components/maincomponents/About";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -15,8 +16,13 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen
+                    name="Home"
+                    component={Home}
+                    options={{ title: "The Movie DB" }}
+                />
                 <Stack.Screen name="Data" component={Data} />
+                <Stack.Screen name="About" component={About} />
             </Stack.Navigator>
         </NavigationContainer>
     );

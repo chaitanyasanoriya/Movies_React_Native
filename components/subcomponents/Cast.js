@@ -1,22 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
     Dimensions,
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
-    Button,
     Image,
     ScrollView,
 } from "react-native";
 
 import Carousel from "react-native-snap-carousel";
-import {
-    getCast,
-    getCastInformation,
-    getSimilarMovies,
-    getWorkedOn,
-} from "../../networking/movies";
+import { getCastInformation, getWorkedOn } from "../../networking/movies";
 import CarouselItem from "./CarouselItem";
 const { width: screenWidth } = Dimensions.get("window");
 

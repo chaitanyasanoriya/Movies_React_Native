@@ -1,13 +1,5 @@
-import React, { useRef, useState } from "react";
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    Button,
-    Image,
-} from "react-native";
+import React, { useState } from "react";
+import { Dimensions, StyleSheet, Text, View, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import Carousel from "react-native-snap-carousel";
@@ -48,6 +40,42 @@ export default function MovieDetails({ movie, push }) {
     const movieClicked = (movie) => {
         push("Data", { movie: movie });
     };
+
+    const displaySimilarMovies = () => {
+        if (similarMovies.length > 0) {
+            return (
+                <View>
+                    <Text
+                        style={{
+                            marginVertical: 10,
+                            fontWeight: "bold",
+                            fontSize: 18,
+                        }}
+                    >
+                        Similar Movies
+                    </Text>
+                    <Carousel
+                        style={styles.imageCarousel}
+                        sliderWidth={screenWidth}
+                        sliderHeight={screenWidth}
+                        itemWidth={150}
+                        data={similarMovies}
+                        renderItem={({ item }, parallaxProps) => (
+                            <CarouselItem
+                                item={item}
+                                parallaxProps={parallaxProps}
+                                itemClicked={movieClicked}
+                                width={150}
+                            />
+                        )}
+                        hasParallaxImages={true}
+                        loop={true}
+                    />
+                </View>
+            );
+        }
+    };
+
     return (
         <View style={styles.container}>
             <ScrollView
@@ -95,33 +123,7 @@ export default function MovieDetails({ movie, push }) {
                         extraData={extraData}
                         loop={true}
                     />
-
-                    <Text
-                        style={{
-                            marginVertical: 10,
-                            fontWeight: "bold",
-                            fontSize: 18,
-                        }}
-                    >
-                        Similar Movies
-                    </Text>
-                    <Carousel
-                        style={styles.imageCarousel}
-                        sliderWidth={screenWidth}
-                        sliderHeight={screenWidth}
-                        itemWidth={150}
-                        data={similarMovies}
-                        renderItem={({ item }, parallaxProps) => (
-                            <CarouselItem
-                                item={item}
-                                parallaxProps={parallaxProps}
-                                itemClicked={movieClicked}
-                                width={150}
-                            />
-                        )}
-                        hasParallaxImages={true}
-                        loop={true}
-                    />
+                    {displaySimilarMovies()}
                 </View>
             </ScrollView>
         </View>

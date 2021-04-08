@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    Button,
-} from "react-native";
+import React from "react";
+import { StyleSheet, View, Button } from "react-native";
 import Cast from "../subcomponents/Cast";
 import Location from "../subcomponents/Location";
 import MovieDetails from "../subcomponents/MovieDetails";

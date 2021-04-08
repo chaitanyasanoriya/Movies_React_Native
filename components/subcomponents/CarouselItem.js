@@ -1,17 +1,7 @@
 import React, { useState } from "react";
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-} from "react-native";
-import { SearchBar } from "react-native-elements";
-import Carousel, { ParallaxImage } from "react-native-snap-carousel";
-import { getTopRatedMovies } from "../../networking/movies";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { ParallaxImage } from "react-native-snap-carousel";
 import Icon from "react-native-vector-icons/AntDesign";
-
-const { width: screenWidth } = Dimensions.get("window");
 
 export default function CarouselItem({
     item,

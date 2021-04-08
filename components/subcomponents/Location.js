@@ -1,12 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    Button,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 export default function Location() {
