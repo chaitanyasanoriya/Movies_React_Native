@@ -5,6 +5,8 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '11.0'
 
 target 'movies' do
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
   use_unimodules!
   config = use_native_modules!
 
@@ -21,4 +23,5 @@ target 'movies' do
   #  post_install do |installer|
   #    flipper_post_install(installer)
   #  end
+
 end

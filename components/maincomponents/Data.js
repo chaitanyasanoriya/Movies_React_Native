@@ -10,13 +10,8 @@ import {
 import Location from "../subcomponents/Location";
 
 export default function Data({ navigation, route }) {
-    // alert(route.params.location);
-    // if(route.params.)
-    // if (route.params.location != undefined ) {
-    //     alert("value");
-    // }
-    // console.log(route.params);
     if (route.params != undefined && route.params.location != undefined) {
+        navigation.setOptions({ title: "Your Location" });
         return <Location />;
     }
     return (
